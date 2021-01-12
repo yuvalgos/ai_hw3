@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
 import math
-
+from sklearn.model_selection import KFold
+import matplotlib.pyplot as plt
 
 def calc_entropy(p_Ci):
     if p_Ci == 0 or p_Ci == 1:
@@ -27,11 +28,16 @@ class TreeLeaf:
 
 
 class TreeNode:  # which is not a leaf
-    def __init__(self, depth):
+    def __init__(self, m_pruning=0, depth=1):
+        """
+        m_pruning is the M parameter for early pruning
+        depth is for debugging purposes
+        """
         self.field = None
         self.threshold = None
         self.child_true = None
         self.child_false = None
+        self.m_pruning = m_pruning
         self.depth = depth
 
     def fit(self, data_set, labels):
@@ -81,16 +87,30 @@ class TreeNode:  # which is not a leaf
             self.child_true = TreeLeaf(0)
         elif true_data_ones == len(labels_true):
             self.child_true = TreeLeaf(1)
+        elif len(labels_true) < self.m_pruning:
+            # pruning, use fathers results
+            all_data_ones = np.count_nonzero(labels)
+            if all_data_ones/len(labels) < 0.5:
+                self.child_true = TreeLeaf(0)
+            else:
+                self.child_true = TreeLeaf(1)
         else:  # not a leaf
-            self.child_true = TreeNode(self.depth + 1)
+            self.child_true = TreeNode(self.m_pruning, self.depth + 1)
             self.child_true.fit(data_true, labels_true)
 
         if false_data_ones == 0:
             self.child_false = TreeLeaf(0)
         elif false_data_ones == len(labels_false):
             self.child_false = TreeLeaf(1)
+        elif len(labels_false) < self.m_pruning:
+            # pruning, use fathers results
+            all_data_ones = np.count_nonzero(labels)
+            if all_data_ones/len(labels) < 0.5:
+                self.child_false = TreeLeaf(0)
+            else:
+                self.child_false = TreeLeaf(1)
         else:  # not a leaf
-            self.child_false = TreeNode(self.depth + 1)
+            self.child_false = TreeNode(self.m_pruning, self.depth + 1)
             self.child_false.fit(data_false, labels_false)
 
     def predict(self, data_set):
@@ -101,6 +121,56 @@ class TreeNode:  # which is not a leaf
         predictions[false_indices] = self.child_false.predict(data_set[false_indices, :])
 
         return predictions
+
+
+def experiment(m_parameters):
+    """
+    this function gets list : "m_parametrs" of m to check
+    and automaticly loads the dataset, performs 5-fold cross
+    validation on each parameter and plots the result
+    """
+    kf = KFold(n_splits=5, random_state=205810179, shuffle=True)
+    train_set = pd.read_csv('train.csv')
+    test_set = pd.read_csv('test.csv')
+
+    train_set["diagnosis"].replace('B', 0, inplace=True)
+    train_set["diagnosis"].replace('M', 1, inplace=True)
+    test_set["diagnosis"].replace('B', 0, inplace=True)
+    test_set["diagnosis"].replace('M', 1, inplace=True)
+
+    features = train_set.columns.tolist()
+    features.remove('diagnosis')
+
+    train_set_data = train_set[features].to_numpy()
+    train_set_labels = train_set['diagnosis'].to_numpy()
+    test_set_data = test_set[features].to_numpy()
+    test_set_labels = test_set['diagnosis'].to_numpy()
+
+    res = []
+    for m in m_parameters:
+        val_results = []
+        for train_indices, val_indices in kf.split(train_set_data):
+            train_fold_data = train_set_data[train_indices]
+            val_fold_data = train_set_data[val_indices]
+            train_fold_labels = train_set_labels[train_indices]
+            val_fold_labels = train_set_labels[val_indices]
+
+            root = TreeNode(m)
+            root.fit(train_fold_data, train_fold_labels)
+
+            predicted_diagnosis = root.predict(val_fold_data)
+
+            true_diagnosis_count = sum(predicted_diagnosis == val_fold_labels)
+            val_results.append(true_diagnosis_count / len(val_fold_labels))
+
+        res.append(np.mean(val_results))
+
+    plt.plot(m_parameters, res, 'o', m_parameters, res, 'k')
+    plt.ylabel('accuracy')
+    plt.xlabel('M')
+    plt.show()
+
+experiment(range(1, 60))
 
 
 def main():
@@ -122,7 +192,7 @@ def main():
     test_set_labels = test_set['diagnosis'].to_numpy()
 
     # train tree:
-    root = TreeNode(1)
+    root = TreeNode(0)
     root.fit(train_set_data, train_set_labels)
 
     # get predictions on test set:
