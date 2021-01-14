@@ -170,7 +170,7 @@ def experiment(m_parameters):
     plt.xlabel('M')
     plt.show()
 
-experiment(range(1, 60))
+# experiment(range(1, 100))
 
 
 def main():
@@ -202,7 +202,10 @@ def main():
     true_diagnosis_count = sum(predicted_diagnosis == test_set_labels)
     print(true_diagnosis_count / len(test_set_labels))
 
-
+    delta_diagnosis = predicted_diagnosis - test_set_labels
+    false_negative = sum(delta_diagnosis == -1)
+    false_positive = sum(delta_diagnosis == 1)
+    # print("loss = ", (0.1*false_positive + false_negative)/len(test_set_labels))
 
 if __name__ == "__main__":
     main()
