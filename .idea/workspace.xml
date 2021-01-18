@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c3c047da-8f71-41d3-aa99-dc54f1914a3d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ex5plot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CostSensitiveID3.py" beforeDir="false" afterPath="$PROJECT_DIR$/CostSensitiveID3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dry.docx" beforeDir="false" afterPath="$PROJECT_DIR$/dry.docx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +30,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/CostSensitiveID3.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ex5plot.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -37,7 +38,7 @@
       <recent name="C:\Study\AI\ai_hw3" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.CostSensetiveID3">
+  <component name="RunManager" selected="Python.ex5plt">
     <configuration name="CostSensetiveID3" type="PythonConfigurationType" factoryName="Python">
       <module name="ai_hw3" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -80,9 +81,31 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="ex5plt" type="PythonConfigurationType" factoryName="Python">
+      <module name="ai_hw3" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\ProgramData\Anaconda3\envs\ai_hw3\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ex5plot.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Python.ID3" />
       <item itemvalue="Python.CostSensetiveID3" />
+      <item itemvalue="Python.ex5plt" />
+      <item itemvalue="Python.ID3" />
     </list>
   </component>
   <component name="ServiceViewManager">
@@ -111,34 +134,34 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="0" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1610634402667">
+    <state x="0" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1610881266899">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="0" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.723.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1610634402667" />
-    <state x="326" y="274" key="FileChooserDialogImpl" timestamp="1610634400295">
+    <state x="0" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.723.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1610881266899" />
+    <state x="326" y="274" key="FileChooserDialogImpl" timestamp="1610881265475">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="326" y="274" key="FileChooserDialogImpl/1920.723.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1610634400295" />
-    <state width="1899" height="167" key="GridCell.Tab.0.bottom" timestamp="1610635612605">
+    <state x="326" y="274" key="FileChooserDialogImpl/1920.723.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1610881265475" />
+    <state width="936" height="168" key="GridCell.Tab.0.bottom" timestamp="1610962690219">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="123" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1610207887696" />
-    <state width="1899" height="167" key="GridCell.Tab.0.bottom/1920.723.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1610635612605" />
-    <state width="1899" height="167" key="GridCell.Tab.0.center" timestamp="1610635612605">
+    <state width="936" height="168" key="GridCell.Tab.0.bottom/1920.723.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1610962690219" />
+    <state width="936" height="168" key="GridCell.Tab.0.center" timestamp="1610962690219">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="123" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1610207887696" />
-    <state width="1899" height="167" key="GridCell.Tab.0.center/1920.723.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1610635612605" />
-    <state width="1899" height="167" key="GridCell.Tab.0.left" timestamp="1610635612605">
+    <state width="936" height="168" key="GridCell.Tab.0.center/1920.723.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1610962690219" />
+    <state width="936" height="168" key="GridCell.Tab.0.left" timestamp="1610962690219">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="123" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1610207887696" />
-    <state width="1899" height="167" key="GridCell.Tab.0.left/1920.723.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1610635612605" />
-    <state width="1899" height="167" key="GridCell.Tab.0.right" timestamp="1610635612605">
+    <state width="936" height="168" key="GridCell.Tab.0.left/1920.723.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1610962690219" />
+    <state width="936" height="168" key="GridCell.Tab.0.right" timestamp="1610962690219">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1899" height="123" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1610207887696" />
-    <state width="1899" height="167" key="GridCell.Tab.0.right/1920.723.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1610635612605" />
+    <state width="936" height="168" key="GridCell.Tab.0.right/1920.723.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1610962690219" />
     <state width="1899" height="123" key="GridCell.Tab.1.bottom" timestamp="1610207887696">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -163,5 +186,16 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="162" key="SettingsEditor/1920.723.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1609928886411" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/CostSensitiveID3.py</url>
+          <line>177</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
