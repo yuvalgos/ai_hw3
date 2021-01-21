@@ -1,42 +1,13 @@
-from ID3 import TreeNode
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import KFold
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import PolynomialFeatures
+
+from KNNForest import KNNForest
 
 
-class KNNForest:
-    def __init__(self, n_trees, p):
-        self.n_trees = n_trees
-        self.p = p
-
-        self.tree_list = [TreeNode() for _ in range(0, n_trees)]
-        self.centroids_arr = None
-        self.fields_max = None
-        self.fields_min = None
-
-    def fit(self, data_set, labels):
-        indices = np.arange(len(labels))
-        subsets_size = int(self.p * len(labels))
-        self.centroids_arr = np.zeros([self.n_trees, data_set.shape[1]])
-        self.fields_max = np.max(data_set, axis=0)
-        self.fields_min = np.min(data_set, axis=0)
-
-        data_set_normalized = (data_set - self.fields_min) / \
-                              (self.fields_max - self.fields_min)
-
-        for i in range(0, self.n_trees):
-            # choose random data :
-            np.random.shuffle(indices)
-            subset_data = data_set_normalized[indices[:subsets_size], :]
-            subset_labels = labels[indices[:subsets_size]]
-
-            # train the tree:
-            self.tree_list[i].fit(subset_data, subset_labels)
-
-            # calculate the centroid:
-            self.centroids_arr[i] = np.mean(subset_data, axis=0)
-
+class ImprovedKNNForest(KNNForest):
     def predict(self, data_set, k_trees=None):
         if k_trees is None:
             k_trees = int(self.n_trees/4)
@@ -52,13 +23,22 @@ class KNNForest:
             distances = np.linalg.norm(self.centroids_arr - data_set_normalized[i], axis=1)
             closest_trees_indices = np.argpartition(distances, k_trees)[:k_trees]
             closest_trees_indices = np.array(closest_trees_indices)
+
+            distances = distances[closest_trees_indices]
+
+            weights = np.ones([len(distances)])/np.square(distances)
+            weights /= sum(weights)
+
             sample = np.array([data_set_normalized[i]])
 
             res = list(map(lambda x: x.predict(sample),
                            np.array(self.tree_list)[closest_trees_indices]
                            ))
+            res = np.array(res)
+            res[res == 0] = -1
+            weighted_prediction = weights @ res  # dot product
 
-            if sum(res) > k_trees/2:
+            if weighted_prediction >= 1/2:
                 predictions[i] = 1
             else:
                 predictions[i] = 0
@@ -201,6 +181,7 @@ def experiment_p(p_params):
     res = []
     for p in p_params:
         val_results = []
+        print("p=", p)
         for train_indices, val_indices in kf.split(train_set_data):
             train_fold_data = train_set_data[train_indices]
             val_fold_data = train_set_data[val_indices]
@@ -209,10 +190,10 @@ def experiment_p(p_params):
 
             sub_results = []
             for i in range(5):
-                algo = KNNForest(75, p)
+                algo = KNNForest(50, p)
                 algo.fit(train_fold_data, train_fold_labels)
 
-                predicted_diagnosis = algo.predict(val_fold_data, k_trees=53)
+                predicted_diagnosis = algo.predict(val_fold_data, k_trees=20)
 
                 true_diagnosis_count = sum(predicted_diagnosis == val_fold_labels)
                 sub_results.append(true_diagnosis_count/len(val_fold_labels))
@@ -249,12 +230,17 @@ def main():
     test_set_data = test_set[features].to_numpy()
     test_set_labels = test_set['diagnosis'].to_numpy()
 
+    # create 2nd order features :
+    trans = PolynomialFeatures(degree=2, include_bias=False)
+    train_set_data = trans.fit_transform(train_set_data)
+    test_set_data = trans.fit_transform(test_set_data)
+
     # train Algorithm:
-    algo = KNNForest(75, 0.3)
+    algo = KNNForest(45, 0.5)
     algo.fit(train_set_data, train_set_labels)
 
     # get predictions on test set:
-    predicted_diagnosis = algo.predict(test_set_data, 23)
+    predicted_diagnosis = algo.predict(test_set_data, 17)
 
     # calculate results:
     true_diagnosis_count = sum(predicted_diagnosis == test_set_labels)
@@ -262,4 +248,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+        main()

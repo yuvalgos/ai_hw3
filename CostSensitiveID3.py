@@ -198,6 +198,8 @@ def main():
     features = train_set.columns.tolist()
     features.remove('diagnosis')
 
+    train_set.drop_duplicates(features, inplace=True)
+
     train_set_data = train_set[features].to_numpy()
     train_set_labels = train_set['diagnosis'].to_numpy()
     test_set_data = test_set[features].to_numpy()
@@ -216,7 +218,7 @@ def main():
     delta_diagnosis = predicted_diagnosis - test_set_labels
     false_negative = sum(delta_diagnosis == -1)
     false_positive = sum(delta_diagnosis == 1)
-    print("loss = ", (0.1*false_positive + false_negative)/len(test_set_labels))
+    print((0.1*false_positive + false_negative)/len(test_set_labels))
 
 
 if __name__ == "__main__":

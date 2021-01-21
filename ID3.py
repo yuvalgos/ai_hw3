@@ -186,6 +186,8 @@ def main():
     features = train_set.columns.tolist()
     features.remove('diagnosis')
 
+    train_set.drop_duplicates(features, inplace=True)
+
     train_set_data = train_set[features].to_numpy()
     train_set_labels = train_set['diagnosis'].to_numpy()
     test_set_data = test_set[features].to_numpy()
